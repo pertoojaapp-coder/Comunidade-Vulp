@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>VULPS+ · Mentores e Aprovados</title>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --accent-primary: #00D9E8;
+      --accent-secondary: #00C2D1;
+      --accent-strong: #007F8C;
+      --accent-soft: rgba(0, 217, 232, 0.12);
+      --accent-glow: rgba(0, 217, 232, 0.25);
+      --bg-primary: #0D141C;
+      --bg-secondary: #0F1720;
+      --bg-card: #121C26;
+      --text-primary: #F0F8FF;
+      --text-secondary: #B0E5EB;
+      --text-muted: #7FB8C0;
+      --border-light: #1F2E3A;
+      --border-hover: #00D9E8;
+      --success: #22C55E;
+      --danger: #EF4444;
+      --warning: #F59E0B;
+      --radius-sm: 12px;
+      --radius-lg: 24px;
+      --card-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    html[data-theme="light"] {
+      --bg-primary: #F0F7F9;
+      --bg-secondary: #E1F0F3;
+      --bg-card: #FFFFFF;
+      --border-light: #C5E0E5;
+      --border-hover: #00C2D1;
+      --text-primary: #0A1A1F;
+      --text-secondary: #1A3D47;
+      --text-muted: #4A7B85;
+      --accent-primary: #007F8C;
+      --accent-secondary: #006B75;
+      --accent-strong: #005A63;
+      --accent-soft: rgba(0, 127, 140, 0.1);
+      --accent-glow: rgba(0, 127, 140, 0.2);
+      --card-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    }
+
+    body {
+      font-family: 'Segoe UI', 'Roboto', system-ui, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      padding: 24px 16px;
+      line-height: 1.5;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    .app-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .app-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 4px;
+      border-bottom: 2px solid var(--accent-primary);
+      padding-bottom: 16px;
+    }
+
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-strong));
+      border-radius: 14px;
+      box-shadow: 0 4px 12px var(--accent-glow);
+    }
+
+    .brand-logo svg { width: 32px; height: 32px; }
+
+    .brand-text h1 {
+      font-weight: 650;
+      font-size: 1.8rem;
+      background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-primary) 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.2;
+    }
+
+    .brand-text p { color: var(--text-secondary); font-size: 0.9rem; }
+
+    .card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 24px 22px;
+      box-shadow: var(--card-shadow);
+      border: 1px solid var(--border-light);
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-bottom: 18px;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: 12px;
+    }
+
+    h2 i { color: var(--accent-primary); }
+
+    h3 { font-weight: 600; font-size: 1.2rem; margin-bottom: 8px; color: var(--text-primary); }
+
+    .btn {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-light);
+      border-radius: 40px;
+      padding: 12px 24px;
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--text-primary);
+      cursor: pointer;
+      box-shadow: var(--card-shadow);
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-strong));
+      border: none;
+      color: #0A1418;
+      font-weight: 700;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #00F0FF, var(--accent-primary));
+      transform: translateY(-2px);
+    }
+
+    .btn-outline:hover {
+      background: var(--accent-soft);
+      border-color: var(--accent-primary);
+    }
+
+    .btn-success { 
+      background: var(--success); 
+      border-color: var(--success); 
+      color: white; 
+    }
+    .btn-success:hover { background: #16a34a; transform: translateY(-3px); }
+
+    .badge {
+      background: var(--accent-soft);
+      padding: 4px 10px;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+    }
+
+    .badge-mentor { background: var(--accent-soft); color: var(--accent-primary); border-color: var(--accent-primary); }
+    .badge-approved { background: rgba(34, 197, 94, 0.15); color: var(--success); border-color: var(--success); }
+
+    .flex-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    #theme-toggle {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 40px;
+      padding: 8px 16px;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .theme-text { display: none; }
+    @media (min-width: 600px) { .theme-text { display: inline; } }
+
+    @media (max-width: 480px) {
+      body { padding: 16px 10px; }
+      .card { padding: 18px 14px; }
+      .btn { padding: 12px 18px; font-size: 0.95rem; }
+      h2 { font-size: 1.4rem; }
+    }
+
+    .hero-section {
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .hero-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-primary) 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .tab-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin: 24px 0;
+    }
+
+    .filter-bar {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .filter-bar input, .filter-bar select {
+      padding: 12px 16px;
+      border: 1.5px solid var(--border-light);
+      border-radius: 40px;
+      font-size: 1rem;
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .mentors-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .mentor-card {
+      background: var(--bg-secondary);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      border: 1px solid var(--border-light);
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .mentor-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent-primary);
+      box-shadow: var(--card-shadow);
+    }
+
+    .mentor-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--accent-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      color: var(--accent-primary);
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+
+    .mentor-name {
+      font-weight: 600;
+      font-size: 1.2rem;
+      margin-bottom: 4px;
+    }
+
+    .mentor-area {
+      color: var(--accent-primary);
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .mentor-bio {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .mentor-price {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--success);
+      margin-bottom: 16px;
+    }
+
+    .mentor-rating {
+      color: var(--warning);
+      margin-bottom: 8px;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal-card {
+      background: var(--bg-card);
+      max-width: 600px;
+      width: 90%;
+      max-height: 85vh;
+      overflow-y: auto;
+      border-radius: 28px;
+      padding: 24px;
+      border: 2px solid var(--accent-primary);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .profile-section {
+      margin-bottom: 20px;
+    }
+
+    .profile-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .profile-value {
+      font-size: 1.1rem;
+      margin-bottom: 16px;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      padding: 12px 24px;
+      border-radius: 40px;
+      border-left: 4px solid var(--accent-primary);
+      box-shadow: var(--card-shadow);
+      z-index: 9999;
+      animation: slideUp 0.3s;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-muted);
+    }
+
+    .empty-state i {
+      font-size: 3rem;
+      margin-bottom: 16px;
+      opacity: 0.5;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: var(--text-secondary);
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1.5px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      font-size: 1rem;
+      font-family: inherit;
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      transition: border 0.2s;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+
+    textarea { min-height: 100px; resize: vertical; }
+
+    .required::after { content: " *"; color: var(--danger); }
+
+    .pix-section {
+      text-align: center;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border-radius: var(--radius-lg);
+      margin: 20px 0;
+    }
+
+    .pix-key {
+      background: var(--bg-card);
+      padding: 16px;
+      border-radius: var(--radius-sm);
+      font-family: monospace;
+      font-size: 1.2rem;
+      margin: 16px 0;
+      border: 1px dashed var(--accent-primary);
+      word-break: break-all;
+    }
+
+    .qrcode-container {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    #qrcode {
+      background: white;
+      padding: 16px;
+      border-radius: var(--radius-lg);
+    }
+  </style>
+</head>
+<body>
+<div class="app-container">
+  
+  <div class="app-header">
+    <div class="header-brand">
+      <div class="brand-logo">
+        <svg viewBox="0 0 40 40" fill="none">
+          <path d="M8 12L20 6L32 12V28L20 34L8 28V12Z" fill="#0D141C" stroke="white" stroke-width="2"/>
+          <text x="20" y="26" font-size="20" font-weight="700" text-anchor="middle" fill="white" font-family="Segoe UI">V+</text>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <h1>VULPS+ Mentores</h1>
+        <p>Conecte-se com quem já foi aprovado</p>
+      </div>
+    </div>
+    <div style="display: flex; gap: 10px;">
+      <button class="btn btn-outline" onclick="window.openMentorModal()">
+        <i class="fas fa-user-plus"></i> Cadastre-se como mentor
+      </button>
+      <button id="theme-toggle">
+        <i class="fas" id="theme-icon">🌙</i>
+        <span class="theme-text">Escuro</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="card hero-section">
+    <h1 class="hero-title">Acelere sua aprovação com quem já passou</h1>
+    <p style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 16px;">
+      Converse com aprovados e mentores experientes
+    </p>
+    
+    <div class="tab-buttons">
+      <button class="btn btn-primary" id="showMentorsBtn">
+        <i class="fas fa-chalkboard-user"></i> Ver mentores
+      </button>
+      <button class="btn btn-outline" id="showApprovedBtn">
+        <i class="fas fa-trophy"></i> Falar com aprovados
+      </button>
+    </div>
+  </div>
+
+  <!-- LISTAGEM (visível por padrão) -->
+  <div class="card" id="listSection">
+    <div class="flex-row">
+      <h2 style="border-bottom: none; padding-bottom: 0; margin-bottom: 0;" id="sectionTitle">
+        <i class="fas fa-users"></i> <span id="sectionTitleText">Mentores disponíveis</span>
+      </h2>
+      <span class="badge" id="resultCount">0 encontrados</span>
+    </div>
+    
+    <div class="filter-bar">
+      <input type="text" id="searchInput" placeholder="🔍 Buscar por nome...">
+      <select id="areaFilter">
+        <option value="">Todas as áreas</option>
+        <option value="Fiscal">Fiscal</option>
+        <option value="Jurídica">Jurídica</option>
+        <option value="Administrativa">Administrativa</option>
+        <option value="Policial">Policial</option>
+        <option value="Bancária">Bancária</option>
+        <option value="Outra">Outra</option>
+      </select>
+      <select id="sortFilter">
+        <option value="name">Nome (A-Z)</option>
+        <option value="price-asc">Menor preço</option>
+        <option value="price-desc">Maior preço</option>
+      </select>
+    </div>
+
+    <div id="mentorsGrid" class="mentors-grid"></div>
+  </div>
+
+  <!-- Modal de Cadastro de Mentor -->
+  <div class="modal-overlay" id="mentorModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3><i class="fas fa-user-plus"></i> Cadastro de Mentor</h3>
+        <button class="btn btn-outline" onclick="window.closeMentorModal()" style="padding: 8px 12px;">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <form id="mentorForm" onsubmit="window.handleFormSubmit(event)">
+        <div class="form-group"><label class="required">Nome completo</label><input type="text" id="nome" placeholder="Ex: João da Silva" required></div>
+        <div class="form-group"><label class="required">Área de atuação</label><select id="area" required><option value="">Selecione...</option><option value="Fiscal">Fiscal</option><option value="Jurídica">Jurídica</option><option value="Administrativa">Administrativa</option><option value="Policial">Policial</option><option value="Bancária">Bancária</option><option value="Outra">Outra</option></select></div>
+        <div class="form-group"><label class="required">Concursos aprovados</label><textarea id="concursos" placeholder="Ex: TRT, INSS, Receita Federal..." required></textarea></div>
+        <div class="form-group"><label class="required">Cargo atual</label><input type="text" id="cargo" placeholder="Ex: Analista Judiciário" required></div>
+        <div class="form-group"><label class="required">Tempo de estudo</label><select id="tempoEstudo" required><option value="">Selecione...</option><option value="Menos de 6 meses">Menos de 6 meses</option><option value="6 meses a 1 ano">6 meses a 1 ano</option><option value="1 a 2 anos">1 a 2 anos</option><option value="2 a 3 anos">2 a 3 anos</option><option value="Mais de 3 anos">Mais de 3 anos</option></select></div>
+        <div class="form-group"><label class="required">Descrição (bio curta)</label><textarea id="bio" placeholder="Conte um pouco sobre sua trajetória..." required></textarea></div>
+        <div class="form-group"><label class="required">Tipo de serviço</label><select id="tipoServico" required><option value="">Selecione...</option><option value="Mentoria individual">Mentoria individual</option><option value="Conversa/Consultoria">Conversa/Consultoria</option><option value="Ambos">Ambos</option></select></div>
+        <div class="form-group"><label>Preço sugerido (R$)</label><input type="number" id="preco" placeholder="Ex: 30" min="0" step="5"></div>
+        <div class="form-group"><label class="required">WhatsApp para contato</label><input type="tel" id="whatsapp" placeholder="(11) 99999-9999" required></div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;"><i class="fas fa-arrow-right"></i> Continuar para pagamento</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal de Pagamento -->
+  <div class="modal-overlay" id="paymentModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3><i class="fas fa-credit-card"></i> Pagamento</h3>
+        <button class="btn btn-outline" onclick="window.closePaymentModal()" style="padding: 8px 12px;"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="pix-section">
+        <i class="fas fa-pix" style="font-size: 2.5rem; color: var(--success);"></i>
+        <h3 style="margin-top: 12px;">Pagamento único de R$2,00</h3>
+        <p style="color: var(--text-muted); margin-bottom: 16px;">Para concluir seu cadastro, realize o pagamento via Pix</p>
+        <div class="qrcode-container"><div id="qrcode"></div></div>
+        <p style="margin: 8px 0; font-weight: 600;">Chave Pix:</p>
+        <div class="pix-key" id="pixKeyDisplay">80780775454</div>
+        <p style="color: var(--text-muted); margin: 8px 0;">José Wellington dos Santos</p>
+        <button class="btn btn-outline" onclick="window.copyPixKey()" style="margin: 8px 0;"><i class="fas fa-copy"></i> Copiar chave Pix</button>
+      </div>
+      <div style="background: var(--accent-soft); border-radius: var(--radius-sm); padding: 16px; margin: 20px 0;">
+        <p><i class="fas fa-info-circle"></i> <strong>Importante:</strong> Após o pagamento, envie o comprovante pelo WhatsApp junto com seus dados.</p>
+      </div>
+      <button class="btn btn-success" onclick="window.sendToWhatsApp()" style="width: 100%;"><i class="fab fa-whatsapp"></i> Já fiz o pagamento, continuar</button>
+    </div>
+  </div>
+
+  <!-- Modal de Perfil -->
+  <div class="modal-overlay" id="profileModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3><i class="fas fa-user-circle"></i> Perfil</h3>
+        <button class="btn btn-outline" onclick="window.closeProfileModal()" style="padding: 8px 12px;"><i class="fas fa-times"></i></button>
+      </div>
+      <div id="profileContent"></div>
+      <button class="btn btn-success" id="contactBtn" style="width: 100%; margin-top: 20px;"><i class="fab fa-whatsapp"></i> Conversar no WhatsApp</button>
+    </div>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<script>
+  (function(){
+    "use strict";
+
+    // ---------- CONFIGURAÇÕES ----------
+    const STORAGE_KEY = 'vulps_mentors';
+    const PIX_KEY = '80780775454';
+    const PIX_NAME = 'José Wellington dos Santos';
+    const ADMIN_WHATSAPP = '5511999999999'; // número real para redirecionamento do cadastro
+
+    // ---------- DADOS MOCKADOS INICIAIS ----------
+    const mockMentors = [
+      { id: 'mock1', type: 'mentor', name: "João Silva", area: "Fiscal", approved: "SEFAZ-SP, Receita Federal", cargo: "Auditor Fiscal", studyTime: "1 ano e 3 meses", bio: "Aprovado em 3 concursos fiscais. Metodologia focada em resolução de questões.", price: "30", whatsapp: "5511999999991", avatar: "JS", rating: 4.8 },
+      { id: 'mock2', type: 'mentor', name: "Ana Oliveira", area: "Jurídica", approved: "TRT, TJ-SP, MPU", cargo: "Analista Judiciário", studyTime: "2 anos", bio: "Especialista em Direito do Trabalho e Processo Civil.", price: "45", whatsapp: "5511999999992", avatar: "AO", rating: 4.9 },
+      { id: 'mock3', type: 'approved', name: "Carlos Mendes", area: "Policial", approved: "Polícia Federal, PRF", cargo: "Agente Federal", studyTime: "1 ano e 8 meses", bio: "Foco em preparação física e mental para carreiras policiais.", price: "20", whatsapp: "5511999999993", avatar: "CM", rating: 4.7 },
+      { id: 'mock4', type: 'mentor', name: "Mariana Costa", area: "Administrativa", approved: "INSS, IBGE, ANCINE", cargo: "Analista Administrativo", studyTime: "1 ano", bio: "Especialista em concursos de nível médio.", price: "25", whatsapp: "5511999999994", avatar: "MC", rating: 4.6 },
+      { id: 'mock5', type: 'approved', name: "Pedro Santos", area: "Fiscal", approved: "ISS-SP, ICMS-RJ", cargo: "Fiscal de Tributos", studyTime: "2 anos e 4 meses", bio: "Estratégia de ciclo de estudos e revisões periódicas.", price: "35", whatsapp: "5511999999995", avatar: "PS", rating: 4.8 },
+      { id: 'mock6', type: 'approved', name: "Fernanda Lima", area: "Jurídica", approved: "Defensoria Pública, Procuradoria", cargo: "Defensora Pública", studyTime: "3 anos", bio: "Mentoria personalizada com simulados.", price: "50", whatsapp: "5511999999996", avatar: "FL", rating: 5.0 },
+      { id: 'mock7', type: 'mentor', name: "Ricardo Alves", area: "Bancária", approved: "Banco do Brasil, Caixa", cargo: "Escriturário", studyTime: "8 meses", bio: "Especialista em concursos bancários.", price: "20", whatsapp: "5511999999997", avatar: "RA", rating: 4.5 },
+      { id: 'mock8', type: 'approved', name: "Juliana Martins", area: "Administrativa", approved: "Ministérios, Autarquias", cargo: "Técnico Administrativo", studyTime: "1 ano e 2 meses", bio: "Compartilho resumos e mapas mentais.", price: "0", whatsapp: "5511999999998", avatar: "JM", rating: 4.9 }
+    ];
+
+    // ---------- ESTADO GLOBAL ----------
+    let currentType = 'mentor';
+    let selectedMentor = null;
+    let allMentors = [];
+    let searchTimeout = null;
+    let mentorFormData = {};
+
+    // ---------- INICIALIZAÇÃO DO STORAGE ----------
+    function loadMentors() {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      const dynamicMentors = stored ? JSON.parse(stored) : [];
+      allMentors = [...dynamicMentors, ...mockMentors];
+    }
+
+    function saveMentor(mentorData) {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      const mentors = stored ? JSON.parse(stored) : [];
+      const newMentor = {
+        ...mentorData,
+        id: 'dyn_' + Date.now(),
+        type: 'mentor',
+        avatar: mentorData.nome.split(' ').map(n => n[0]).join('').slice(0,2).toUpperCase(),
+        rating: 5.0
+      };
+      mentors.push(newMentor);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(mentors));
+      loadMentors();
+      renderMentors();
+    }
+
+    // ---------- TEMA ----------
+    const htmlEl = document.documentElement;
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const themeText = themeToggle.querySelector('.theme-text');
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    function updateThemeUI(t) {
+      htmlEl.setAttribute('data-theme', t);
+      themeIcon.className = t === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+      themeText.textContent = t === 'dark' ? 'Escuro' : 'Claro';
+    }
+    updateThemeUI(savedTheme);
+    themeToggle.onclick = () => {
+      const n = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      updateThemeUI(n); localStorage.setItem('theme', n);
+    };
+
+    // ---------- TOAST ----------
+    function showToast(msg) {
+      const toast = document.createElement('div'); toast.className = 'toast'; toast.textContent = msg;
+      document.body.appendChild(toast); setTimeout(() => toast.remove(), 3000);
+    }
+
+    // ---------- FILTROS E RENDERIZAÇÃO ----------
+    function getFilteredMentors() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      const areaFilter = document.getElementById('areaFilter').value;
+      let filtered = allMentors.filter(m => m.type === currentType);
+      if (searchTerm) filtered = filtered.filter(m => m.name.toLowerCase().includes(searchTerm));
+      if (areaFilter) filtered = filtered.filter(m => m.area === areaFilter);
+      return filtered;
+    }
+
+    function sortMentors(mentors) {
+      const sortBy = document.getElementById('sortFilter').value;
+      if (sortBy === 'name') return mentors.sort((a,b) => a.name.localeCompare(b.name));
+      const parsePrice = (p) => parseFloat(p) || 0;
+      if (sortBy === 'price-asc') return mentors.sort((a,b) => parsePrice(a.price) - parsePrice(b.price));
+      if (sortBy === 'price-desc') return mentors.sort((a,b) => parsePrice(b.price) - parsePrice(a.price));
+      return mentors;
+    }
+
+    function renderMentors() {
+      let filtered = getFilteredMentors();
+      filtered = sortMentors(filtered);
+      const grid = document.getElementById('mentorsGrid');
+      const countEl = document.getElementById('resultCount');
+      countEl.textContent = `${filtered.length} encontrados`;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div class="empty-state" style="grid-column: 1/-1;"><i class="fas fa-search"></i><p>Nenhum ${currentType === 'mentor' ? 'mentor' : 'aprovado'} encontrado</p><p style="font-size:0.9rem;">Tente ajustar os filtros</p></div>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(m => {
+        const badgeClass = m.type === 'mentor' ? 'badge-mentor' : 'badge-approved';
+        const badgeText = m.type === 'mentor' ? '💼 Mentor' : '🏆 Aprovado';
+        const priceDisplay = m.price === '0' ? 'Grátis' : `R$ ${m.price}`;
+        const ratingStars = '★'.repeat(Math.floor(m.rating)) + '☆'.repeat(5 - Math.floor(m.rating));
+        return `
+          <div class="mentor-card" onclick="window.showProfile('${m.id}')">
+            <div class="mentor-avatar">${m.avatar}</div>
+            <div class="mentor-name">${m.name}</div>
+            <div class="mentor-area">${m.area} · ${m.cargo}</div>
+            <div class="mentor-rating">${ratingStars} ${m.rating.toFixed(1)}</div>
+            <div class="mentor-bio">${m.bio.substring(0, 80)}...</div>
+            <div class="mentor-price">${priceDisplay}</div>
+            <span class="badge ${badgeClass}" style="display:inline-block; margin-bottom:8px;">${badgeText}</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function switchTab(type) {
+      currentType = type;
+      document.getElementById('showMentorsBtn').className = type === 'mentor' ? 'btn btn-primary' : 'btn btn-outline';
+      document.getElementById('showApprovedBtn').className = type === 'approved' ? 'btn btn-primary' : 'btn btn-outline';
+      document.getElementById('sectionTitleText').textContent = type === 'mentor' ? 'Mentores disponíveis' : 'Aprovados disponíveis';
+      document.getElementById('areaFilter').value = '';
+      document.getElementById('searchInput').value = '';
+      renderMentors();
+    }
+
+    // ---------- PERFIL ----------
+    window.showProfile = function(id) {
+      selectedMentor = allMentors.find(m => m.id == id);
+      if (!selectedMentor) return;
+      const content = document.getElementById('profileContent');
+      content.innerHTML = `
+        <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px;">
+          <div class="mentor-avatar" style="width: 70px; height: 70px; font-size: 1.8rem;">${selectedMentor.avatar}</div>
+          <div><h3>${selectedMentor.name}</h3><span class="badge ${selectedMentor.type === 'mentor' ? 'badge-mentor' : 'badge-approved'}">${selectedMentor.type === 'mentor' ? 'Mentor' : 'Aprovado'}</span></div>
+        </div>
+        <div class="profile-section">
+          <div class="profile-label">Área</div><div class="profile-value">${selectedMentor.area}</div>
+          <div class="profile-label">Concursos aprovados</div><div class="profile-value">${selectedMentor.approved}</div>
+          <div class="profile-label">Cargo</div><div class="profile-value">${selectedMentor.cargo}</div>
+          <div class="profile-label">Tempo de estudo</div><div class="profile-value">${selectedMentor.studyTime}</div>
+          <div class="profile-label">Sobre</div><div class="profile-value">${selectedMentor.bio}</div>
+          <div class="profile-label">Valor</div><div class="profile-value" style="color: var(--success); font-size: 1.5rem;">${selectedMentor.price === '0' ? 'Grátis' : 'R$ ' + selectedMentor.price}</div>
+        </div>
+      `;
+      document.getElementById('profileModal').style.display = 'flex';
+    };
+
+    window.closeProfileModal = () => document.getElementById('profileModal').style.display = 'none';
+
+    window.contactMentor = function() {
+      if (!selectedMentor) return;
+      const msg = `Olá ${selectedMentor.name}! Vi seu perfil no VULPS+ e gostaria de saber mais sobre ${selectedMentor.type === 'mentor' ? 'sua mentoria' : 'sua experiência'}.`;
+      window.open(`https://wa.me/${selectedMentor.whatsapp}?text=${encodeURIComponent(msg)}`, '_blank');
+      showToast(`Redirecionando para WhatsApp...`);
+      window.closeProfileModal();
+    };
+
+    // ---------- CADASTRO DE MENTOR ----------
+    window.openMentorModal = () => document.getElementById('mentorModal').style.display = 'flex';
+    window.closeMentorModal = () => { document.getElementById('mentorModal').style.display = 'none'; document.getElementById('mentorForm').reset(); };
+    window.closePaymentModal = () => document.getElementById('paymentModal').style.display = 'none';
+
+    window.copyPixKey = function() {
+      navigator.clipboard?.writeText(PIX_KEY).then(() => showToast('✅ Chave Pix copiada!')).catch(() => prompt('Copie manualmente:', PIX_KEY));
+    };
+
+    function generateQRCode() {
+      const qrcodeDiv = document.getElementById('qrcode');
+      qrcodeDiv.innerHTML = '';
+      new QRCode(qrcodeDiv, { text: PIX_KEY, width: 200, height: 200, colorDark: "#000000", colorLight: "#ffffff", correctLevel: QRCode.CorrectLevel.H });
+    }
+
+    window.handleFormSubmit = function(e) {
+      e.preventDefault();
+      const nome = document.getElementById('nome').value.trim();
+      const area = document.getElementById('area').value;
+      const concursos = document.getElementById('concursos').value.trim();
+      const cargo = document.getElementById('cargo').value.trim();
+      const tempoEstudo = document.getElementById('tempoEstudo').value;
+      const bio = document.getElementById('bio').value.trim();
+      const tipoServico = document.getElementById('tipoServico').value;
+      const preco = document.getElementById('preco').value || '0';
+      const whatsapp = document.getElementById('whatsapp').value.trim().replace(/\D/g, '');
+
+      if (!nome || !area || !concursos || !cargo || !tempoEstudo || !bio || !tipoServico || !whatsapp) {
+        showToast('❌ Preencha todos os campos obrigatórios'); return;
+      }
+
+      mentorFormData = { nome, area, approved: concursos, cargo, studyTime: tempoEstudo, bio, serviceType: tipoServico, price: preco, whatsapp };
+      document.getElementById('mentorModal').style.display = 'none';
+      document.getElementById('paymentModal').style.display = 'flex';
+      generateQRCode();
+    };
+
+    window.sendToWhatsApp = function() {
+      const msg = `*CADASTRO DE MENTOR VULPS+*\n\nNome: ${mentorFormData.nome}\nÁrea: ${mentorFormData.area}\nConcursos: ${mentorFormData.approved}\nCargo: ${mentorFormData.cargo}\nTempo: ${mentorFormData.studyTime}\nBio: ${mentorFormData.bio}\nServiço: ${mentorFormData.serviceType}\nPreço: R$ ${mentorFormData.price}\nWhatsApp: ${mentorFormData.whatsapp}\n\nSegue comprovante do Pix.`;
+      window.open(`https://wa.me/${ADMIN_WHATSAPP}?text=${encodeURIComponent(msg)}`, '_blank');
+      saveMentor(mentorFormData);
+      document.getElementById('paymentModal').style.display = 'none';
+      document.getElementById('mentorForm').reset();
+      showToast('✅ Cadastro enviado! Aguarde aprovação.');
+    };
+
+    // ---------- EVENT LISTENERS ----------
+    document.getElementById('showMentorsBtn').addEventListener('click', () => switchTab('mentor'));
+    document.getElementById('showApprovedBtn').addEventListener('click', () => switchTab('approved'));
+    document.getElementById('searchInput').addEventListener('input', () => {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(renderMentors, 300);
+    });
+    document.getElementById('areaFilter').addEventListener('change', renderMentors);
+    document.getElementById('sortFilter').addEventListener('change', renderMentors);
+    document.getElementById('contactBtn').addEventListener('click', window.contactMentor);
+
+    document.querySelectorAll('.modal-overlay').forEach(modal => {
+      modal.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
+    });
+
+    // ---------- INICIALIZAÇÃO ----------
+    loadMentors();
+    switchTab('mentor'); // já exibe lista visível
+
+  })();
+</script>
+</body>
+</html>
